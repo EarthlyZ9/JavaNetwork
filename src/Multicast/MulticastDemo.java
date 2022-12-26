@@ -67,4 +67,20 @@ public class MulticastDemo {
             e.printStackTrace();
         }
     }
+
+    static void receiveMessage(MulticastSocket ms) {
+        byte[] receivedData;
+        DatagramPacket receivedPacket;
+        receivedData = new byte[65508];
+        receivedPacket = new DatagramPacket(receivedData, receivedData.length);
+
+        try {
+            ms.receive(receivedPacket);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Sent from: " + receivedPacket.getSocketAddress());
+        System.out.println("Got: " + new String(receivedPacket.getData()).trim());
+    }
 }

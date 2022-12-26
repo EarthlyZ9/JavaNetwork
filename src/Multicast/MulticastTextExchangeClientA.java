@@ -47,8 +47,8 @@ public class MulticastTextExchangeClientA {
         }
 
         // 데이터 그램 패킷 수신 - 멀티캐스트 그룹에 송신된 데이터 받기
-        receiveMessage(ms); // 본인이 보낸 메시지 수신
-        receiveMessage(ms); // Client B 가 보낸 메시지 수신
+        MulticastDemo.receiveMessage(ms); // 본인이 보낸 메시지 수신
+        MulticastDemo.receiveMessage(ms); // Client B 가 보낸 메시지 수신
 
         // 멀티캐스트 그룹 나가기
         try {
@@ -59,21 +59,5 @@ public class MulticastTextExchangeClientA {
 
         // 소켓 닫기
         ms.close();
-    }
-
-    static void receiveMessage(MulticastSocket ms) {
-        byte[] receivedData;
-        DatagramPacket receivedPacket;
-        receivedData = new byte[65508];
-        receivedPacket = new DatagramPacket(receivedData, receivedData.length);
-
-        try {
-            ms.receive(receivedPacket);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("Sent from: " + receivedPacket.getSocketAddress());
-        System.out.println("Got: " + new String(receivedPacket.getData()).trim());
     }
 }

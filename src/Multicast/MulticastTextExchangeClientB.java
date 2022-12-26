@@ -37,7 +37,7 @@ public class MulticastTextExchangeClientB {
         }
 
         // 데이터그램 패킷 수신
-        receiveMessage(ms);
+        MulticastDemo.receiveMessage(ms);
 
         // 전송할 데이터를 담을 데이터그램 패킷 생성 + 전송
         byte[] sendData = "Nice to meet you from Client B".getBytes();
@@ -49,7 +49,7 @@ public class MulticastTextExchangeClientB {
             System.out.println(e.getMessage());
         }
 
-        receiveMessage(ms); // Client A 가 보낸 메시지 수신
+        MulticastDemo.receiveMessage(ms); // Client A 가 보낸 메시지 수신
 
         // 멀티캐스트 그룹 나가기
         try {
@@ -60,21 +60,5 @@ public class MulticastTextExchangeClientB {
 
         // 소켓 닫기
         ms.close();
-    }
-
-    static void receiveMessage(MulticastSocket ms) {
-        byte[] receivedData;
-        DatagramPacket receivedPacket;
-        receivedData = new byte[65508];
-        receivedPacket = new DatagramPacket(receivedData, receivedData.length);
-
-        try {
-            ms.receive(receivedPacket);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("Sent from: " + receivedPacket.getSocketAddress());
-        System.out.println("Got: " + new String(receivedPacket.getData()).trim());
     }
 }
